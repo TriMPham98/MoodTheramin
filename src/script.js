@@ -7,20 +7,20 @@ import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHel
  * Webcam Setup
  */
 async function setupWebcam() {
-  const video = document.createElement('video');
+  const video = document.createElement("video");
   video.autoplay = true;
   video.muted = true;
   video.playsInline = true;
-  
+
   const stream = await navigator.mediaDevices.getUserMedia({ video: true });
   video.srcObject = stream;
-  
+
   await new Promise((resolve) => {
     video.onloadedmetadata = () => {
       resolve(video);
     };
   });
-  
+
   video.play();
   return video;
 }
@@ -44,13 +44,23 @@ const scene = new THREE.Scene();
 // AmbientLight is used to simulate light bouncing off objects.
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.0);
 scene.add(ambientLight);
-gui.add(ambientLight, "intensity").min(0).max(1).step(0.0001).name("Ambient Intensity");
+gui
+  .add(ambientLight, "intensity")
+  .min(0)
+  .max(1)
+  .step(0.0001)
+  .name("Ambient Intensity");
 
 // DirectionalLight will have a sun-like effect in a parallel direction.
 const directionalLight = new THREE.DirectionalLight(0x00fffc, 0.0);
 directionalLight.position.set(1, 0.25, 0);
 scene.add(directionalLight);
-gui.add(directionalLight, "intensity").min(0).max(1).step(0.0001).name("Directional Int.");
+gui
+  .add(directionalLight, "intensity")
+  .min(0)
+  .max(1)
+  .step(0.0001)
+  .name("Directional Int.");
 
 // PointLight looks like a candle and has a small point that radiates out.
 const pointLight = new THREE.PointLight(0xff9000, 1.0, 10, 6);
@@ -62,10 +72,15 @@ gui.add(pointLight, "intensity").min(0).max(5).step(0.001).name("Point Int.");
 const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 3, 1, 1);
 const epsilon = 0.01;
 rectAreaLight.position.set(0, 0, -epsilon);
-rectAreaLight.scale.set((16 / 9) + 0.2, 1.2, 1);  // Slightly larger than the screen
+rectAreaLight.scale.set(4 / 3 + 0.2, 1.2, 1); // Slightly larger than the screen
 rectAreaLight.lookAt(new THREE.Vector3());
 scene.add(rectAreaLight);
-gui.add(rectAreaLight, "intensity").min(0).max(10).step(0.001).name("RectArea Int.");
+gui
+  .add(rectAreaLight, "intensity")
+  .min(0)
+  .max(10)
+  .step(0.001)
+  .name("RectArea Int.");
 
 // Helpers
 const rectAreaLightHelper = new RectAreaLightHelper(rectAreaLight);
@@ -112,7 +127,12 @@ window.addEventListener("resize", () => {
  * Camera
  */
 // Base camera
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
+const camera = new THREE.PerspectiveCamera(
+  75,
+  sizes.width / sizes.height,
+  0.1,
+  100
+);
 camera.position.x = 0;
 camera.position.y = 0;
 camera.position.z = 2;
@@ -121,6 +141,7 @@ scene.add(camera);
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+controls.minPolarAngle = Math.PI / 2.01; // Slightly above the horizon
 
 /**
  * Renderer
@@ -165,7 +186,7 @@ const tick = () => {
 async function init() {
   // Set up the webcam
   const video = await setupWebcam();
-  
+
   // Create a texture from the video element
   videoTexture = new THREE.VideoTexture(video);
   videoTexture.minFilter = THREE.LinearFilter;
@@ -173,7 +194,7 @@ async function init() {
   videoTexture.format = THREE.RGBFormat;
 
   // Create a plane geometry and material using the video texture
-  const screenGeometry = new THREE.PlaneGeometry(16 / 9, 1);
+  const screenGeometry = new THREE.PlaneGeometry(4 / 3, 1);
   const screenMaterial = new THREE.MeshBasicMaterial({ map: videoTexture });
   const screen = new THREE.Mesh(screenGeometry, screenMaterial);
 
@@ -181,7 +202,7 @@ async function init() {
   screen.position.set(0, 0, 0);
   screen.scale.x = -1;
   scene.add(screen);
-  
+
   // Start the animation loop
   tick();
 }
