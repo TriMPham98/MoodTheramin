@@ -54,8 +54,8 @@ gui
 /**
  * Moving Lights
  */
-const ghost1 = new THREE.PointLight("#ff00ff", 2, 3); // color, intensity, distance
-scene.add(ghost1);
+const movingLight1 = new THREE.PointLight("#ff00ff", 2, 3); // color, intensity, distance
+scene.add(movingLight1);
 
 // RectAreaLight is a mix of directional and diffused light.
 const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 3, 1, 1);
@@ -160,10 +160,10 @@ const tick = () => {
   }
 
   // Update moving lights
-  const ghost1Angle = elapsedTime * 0.5;
-  ghost1.position.x = Math.cos(ghost1Angle) * 2;
-  ghost1.position.z = Math.sin(ghost1Angle) * 2;
-  ghost1.position.y = Math.sin(elapsedTime) * 1;
+  const movingLight1Angle = elapsedTime * 0.5;
+  movingLight1.position.x = Math.cos(movingLight1Angle) * 2;
+  movingLight1.position.z = Math.sin(movingLight1Angle) * 2;
+  movingLight1.position.y = Math.sin(elapsedTime) * 1;
 
   // Update controls
   controls.update();
