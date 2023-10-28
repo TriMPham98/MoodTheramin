@@ -60,6 +60,9 @@ scene.add(movingLight1);
 const movingLight2 = new THREE.PointLight("#00ffff", 2, 3); // color, intensity, distance
 scene.add(movingLight2);
 
+const movingLight3 = new THREE.PointLight("#ffffff", 2, 3); // color, intensity, distance
+scene.add(movingLight3);
+
 // RectAreaLight is a mix of directional and diffused light.
 const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 3, 1, 1);
 const epsilon = 0.01;
@@ -171,7 +174,14 @@ const tick = () => {
   const movingLight2Angle = -elapsedTime * 0.5;
   movingLight2.position.x = Math.cos(movingLight2Angle) * 2.5;
   movingLight2.position.z = Math.sin(movingLight2Angle) * 2.55;
-  movingLight2.position.y = Math.sin(elapsedTime * 2) + Math.sin(elapsedTime * 2.5);
+  movingLight2.position.y =
+    Math.sin(elapsedTime * 2) + Math.sin(elapsedTime * 2.5);
+
+  const movingLight3Angle = elapsedTime * 0.25;
+  movingLight3.position.x =
+    Math.cos(movingLight3Angle) * (2 + Math.sin(elapsedTime * 0.32));
+  movingLight3.position.z = Math.sin(movingLight3Angle) * (3 + Math.sin(elapsedTime * 0.5));
+  movingLight3.position.y = Math.sin(elapsedTime * 1.5) + Math.sin(elapsedTime * 1.5);
 
   // Update controls
   controls.update();
