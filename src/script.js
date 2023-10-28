@@ -51,23 +51,6 @@ gui
   .step(0.0001)
   .name("Ambient Intensity");
 
-// DirectionalLight will have a sun-like effect in a parallel direction.
-const directionalLight = new THREE.DirectionalLight(0x00fffc, 0.0);
-directionalLight.position.set(1, 0.25, 0);
-scene.add(directionalLight);
-gui
-  .add(directionalLight, "intensity")
-  .min(0)
-  .max(1)
-  .step(0.0001)
-  .name("Directional Int.");
-
-// PointLight looks like a candle and has a small point that radiates out.
-const pointLight = new THREE.PointLight(0xff9000, 1.0, 10, 6);
-pointLight.position.set(1, -0.5, 1);
-scene.add(pointLight);
-gui.add(pointLight, "intensity").min(0).max(5).step(0.001).name("Point Int.");
-
 // RectAreaLight is a mix of directional and diffused light.
 const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 3, 1, 1);
 const epsilon = 0.01;
