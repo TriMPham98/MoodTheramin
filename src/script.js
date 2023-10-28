@@ -187,7 +187,8 @@ async function init() {
   const screen = new THREE.Mesh(screenGeometry, screenMaterial);
 
   // Position the screen in the scene
-  screen.position.set(0, 1, -5);
+  screen.position.set(0, 0, 0);
+  screen.scale.x = -1;
   scene.add(screen);
   
   // Start the animation loop
