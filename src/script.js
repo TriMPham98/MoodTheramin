@@ -51,6 +51,12 @@ gui
   .step(0.0001)
   .name("Ambient Intensity");
 
+/**
+ * Moving Lights
+ */
+const ghost1 = new THREE.PointLight("#ff00ff", 2, 3); // color, intensity, distance
+scene.add(ghost1);
+
 // RectAreaLight is a mix of directional and diffused light.
 const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 3, 1, 1);
 const epsilon = 0.01;
@@ -152,6 +158,12 @@ const tick = () => {
   if (videoTexture) {
     videoTexture.needsUpdate = true;
   }
+
+  // Update moving lights
+  const ghost1Angle = elapsedTime * 0.5;
+  ghost1.position.x = Math.cos(ghost1Angle) * 2;
+  ghost1.position.z = Math.sin(ghost1Angle) * 2;
+  ghost1.position.y = Math.sin(elapsedTime) * 1;
 
   // Update controls
   controls.update();
