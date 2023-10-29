@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as dat from "lil-gui";
 import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper.js";
-import { Reflector } from "three/examples/jsm/objects/Reflector.js"
+import { Reflector } from "three/examples/jsm/objects/Reflector.js";
 
 /**
  * Webcam Setup
@@ -181,8 +181,10 @@ const tick = () => {
   const movingLight3Angle = elapsedTime * 0.25;
   movingLight3.position.x =
     Math.cos(movingLight3Angle) * (2 + Math.sin(elapsedTime * 0.32));
-  movingLight3.position.z = Math.sin(movingLight3Angle) * (3 + Math.sin(elapsedTime * 0.5));
-  movingLight3.position.y = Math.sin(elapsedTime * 1.5) + Math.sin(elapsedTime * 1.5);
+  movingLight3.position.z =
+    Math.sin(movingLight3Angle) * (3 + Math.sin(elapsedTime * 0.5));
+  movingLight3.position.y =
+    Math.sin(elapsedTime * 1.5) + Math.sin(elapsedTime * 1.5);
 
   // Update controls
   controls.update();
