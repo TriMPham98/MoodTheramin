@@ -104,7 +104,7 @@ material.roughness = 0.4;
 // Objects
 
 const plane = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), material);
-plane.rotation.x = -Math.PI * 0.001;
+plane.rotation.x = -Math.PI * 0.501;
 plane.position.y = -0.65;
 
 scene.add(plane);
