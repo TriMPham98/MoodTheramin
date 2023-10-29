@@ -78,6 +78,18 @@ gui
   .step(0.001)
   .name("RectArea Int.");
 
+// DirectionalLight will have a sun-like effect in a parallel direction.
+const directionalLight = new THREE.DirectionalLight(0x00fffc, 0.5);
+directionalLight.position.set(1, 0.25, 0);
+scene.add(directionalLight);
+
+gui
+  .add(directionalLight, "intensity")
+  .min(0)
+  .max(1)
+  .step(0.0001)
+  .name("Directional Int.");
+
 // Helpers
 const rectAreaLightHelper = new RectAreaLightHelper(rectAreaLight);
 scene.add(rectAreaLightHelper);
@@ -96,28 +108,6 @@ plane.rotation.x = -Math.PI * 0.5;
 plane.position.y = -0.65;
 
 scene.add(plane);
-
-// Water
-const waterGeometry = new THREE.PlaneGeometry(10000, 10000);
-const water = new Water(
-    waterGeometry,
-    {
-      textureWidth: 512,
-      textureHeight: 512,
-      waterNormals: new THREE.TextureLoader().load('', function (texture) {
-        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-      }),
-      alpha: 1.0,
-      sunDirection: new THREE.Vector3(),
-      sunColor: 0xffffff,
-      waterColor: 0x001e0f,
-      distortionScale: 3.7,
-      fog: scene.fog !== undefined
-    }
-); 
-water.rotation.x = -Math.PI / 2;
-scene.add(water);
-
 
 /**
  * Sizes
