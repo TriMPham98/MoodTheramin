@@ -104,7 +104,7 @@ material.roughness = 0.4;
 // Objects
 
 const plane = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), material);
-plane.rotation.x = -Math.PI * 0.5;
+plane.rotation.x = -Math.PI * 0.001;
 plane.position.y = -0.65;
 
 scene.add(plane);
@@ -143,12 +143,14 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.x = 0;
 camera.position.y = 0;
-camera.position.z = 1.25;
+camera.position.z = 1.75;
 scene.add(camera);
 
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+controls.enableZoom = false;     // Locks the zoom
+controls.enableRotate = false;   // Locks the rotation
 // controls.minPolarAngle = Math.PI / 2.01; // Slightly above the horizon
 
 /**
