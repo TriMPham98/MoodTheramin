@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as dat from "lil-gui";
 import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper.js";
-import { Reflector } from "three/examples/jsm/objects/Reflector.js";
+import { Water } from "three/examples/jsm/objects/Water.js";
 
 /**
  * Webcam Setup
@@ -97,6 +97,28 @@ plane.position.y = -0.65;
 
 scene.add(plane);
 
+// Water
+const waterGeometry = new THREE.PlaneGeometry(10000, 10000);
+const water = new Water(
+    waterGeometry,
+    {
+      textureWidth: 512,
+      textureHeight: 512,
+      waterNormals: new THREE.TextureLoader().load('', function (texture) {
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      }),
+      alpha: 1.0,
+      sunDirection: new THREE.Vector3(),
+      sunColor: 0xffffff,
+      waterColor: 0x001e0f,
+      distortionScale: 3.7,
+      fog: scene.fog !== undefined
+    }
+); 
+water.rotation.x = -Math.PI / 2;
+scene.add(water);
+
+
 /**
  * Sizes
  */
@@ -137,7 +159,7 @@ scene.add(camera);
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-controls.minPolarAngle = Math.PI / 2.01; // Slightly above the horizon
+// controls.minPolarAngle = Math.PI / 2.01; // Slightly above the horizon
 
 /**
  * Renderer
